@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kanwal & Zee Shan’s Love Space</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #f5e1fd, #d1e8ff);
+      color: #333;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #ff69b4;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      animation: glow 2s infinite;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.2em;
+      line-height: 1.5;
+      max-width: 90%;
+      margin: 0 auto 20px;
+      text-align: center;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #fff0f5;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 15px 0;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .button {
+      padding: 12px 25px;
+      margin: 10px;
+      background: #66b3ff;
+      border: none;
+      color: white;
+      font-size: 1.1em;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .button:hover {
+      transform: scale(1.1);
+      background: #ff69b4;
+    }
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff4444;
+      transform: rotate(45deg);
+      animation: float 6s infinite;
+      cursor: pointer;
+    }
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff4444;
+      border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+    .star {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ffd700;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      animation: twinkle 3s infinite;
+    }
+    .photo-frame {
+      width: 150px;
+      height: 150px;
+      background: url('https://via.placeholder.com/150?text=Zee+Shan+&+Kanwal') center/cover;
+      margin: 20px auto;
+      border: 5px solid #ff69b4;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    .hidden {
+      display: none;
+    }
+    .canvas-container {
+      margin: 20px auto;
+      border: 2px dashed #ff69b4;
+      border-radius: 10px;
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+    .firework {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: #ff69b4;
+      border-radius: 50%;
+      animation: explode 1s forwards;
+    }
+    .emoji-picker {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 10px 0;
+    }
+    .emoji {
+      font-size: 2em;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .emoji:hover {
+      transform: scale(1.3);
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 1.2em;
+      color: #ff69b4;
+      text-align: center;
+      animation: bounce 2s infinite;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8em; }
+      p { font-size: 1em; }
+      .photo-frame { width: 120px; height: 120px; }
+      .button { font-size: 0.9em; padding: 10px 20px; }
+      .card { padding: 15px; }
+    }
+    @keyframes glow {
+      0%, 100% { text-shadow: 2px 2px 5px rgba(255, 105, 180, 0.5); }
+      50% { text-shadow: 2px 2px 15px rgba(255, 105, 180, 1); }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(1.5); }
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(45deg); }
+      100% { transform: translateY(-20px) rotate(45deg); opacity: 0; }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    @keyframes explode {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(10); opacity: 0; }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Kanwal & Zee Shan’s Love Space</h1>
+    <p>Hey Kanwal, it’s Zee Shan. I made this magical place for you because you’re my everything. Two years of us—every laugh, every quiet moment, every dream we shared—makes me feel so lucky. I know things feel heavy right now, but you’re always safe with me. I’m here to hold you close, even from far away.</p>
+    <div class="photo-frame"></div>
+
+    <!-- Love Note Generator -->
+    <div class="card">
+      <h2>🎁 A Love Note for Kanwal</h2>
+      <button class="button" onclick="showLoveNote()">Show a Surprise Note</button>
+      <p id="loveNote" class="hidden"></p>
+    </div>
+
+    <!-- Virtual Hug Machine -->
+    <div class="card">
+      <h2>🤗 Virtual Hug Machine</h2>
+      <button class="button" onclick="sendHug()">Send Hug 💗</button>
+      <p id="hugMessage" class="hidden">Hug from Zee Shan to Kanwal 🤗💖</p>
+    </div>
+
+    <!-- Love Quiz -->
+    <div class="card">
+      <h2>💘 Love Quiz of Us</h2>
+      <p id="quizQuestion"></p>
+      <div id="quizOptions"></div>
+      <p id="quizResult" class="hidden">Woohoo Kanwal! You nailed our love story 🥰🎉</p>
+    </div>
+
+    <!-- Mood Meter -->
+    <div class="card">
+      <h2>💭 Kanwal’s Mood Today</h2>
+      <div class="emoji-picker">
+        <span class="emoji" onclick="setMood('😊')">😊</span>
+        <span class="emoji" onclick="setMood('😢')">😢</span>
+        <span class="emoji" onclick="setMood('😡')">😡</span>
+        <span class="emoji" onclick="setMood('🥰')">🥰</span>
+      </div>
+      <p id="moodMessage" class="hidden"></p>
+    </div>
+
+    <!-- Memory Carousel -->
+    <div class="card">
+      <h2>📸 Sweet Memory</h2>
+      <button class="button" onclick="nextMemory()">Next Memory</button>
+      <p id="memoryText"></p>
+    </div>
+
+    <!-- Gift Ideas -->
+    <div class="card">
+      <h2>🎀 Cute Gift Ideas</h2>
+      <button class="button" onclick="toggleGifts()">Open Surprise Box</button>
+      <ul id="giftList" class="hidden"></ul>
+    </div>
+
+    <!-- Love Poem -->
+    <div class="card">
+      <h2>📝 Mini Love Poem</h2>
+      <button class="button" onclick="togglePoem()">Make Zee Shan Rhyme</button>
+      <p id="poemText" class="hidden"></p>
+    </div>
+
+    <!-- Love Letter -->
+    <div class="card">
+      <h2>💌 Open Love Letter</h2>
+      <button class="button" onclick="toggleLetter()">Open Letter from Zee Shan</button>
+      <div id="loveLetter" class="hidden">
+        <p>Dear Kanwal,</p>
+        <p>I remember the night we both shared our dreams—yours made me want to protect them all. Your voice, even when sleepy, felt like home. You turned a simple ‘hi’ into a forever feeling. Thank you for giving my heart its favorite story—us. Two years of us, the good, the rough, the wild—it’s all beautiful to me. I know you’re feeling heavy, and I get it, but I’m still here, missing you like crazy. I always want to be close to you, just like 2 bodies and 1 soul. ILYSM 💋💕.</p>
+        <p>Forever yours,</p>
+        <p>Zee Shan 🥰</p>
+      </div>
+    </div>
+
+    <!-- Fireworks Button -->
+    <div class="card">
+      <h2>🎆 Celebrate Us</h2>
+      <button class="button" onclick="launchFireworks()">Launch Fireworks</button>
+    </div>
+
+    <!-- Canvas Drawing -->
+    <div class="card">
+      <h2>🎨 Draw Our Love</h2>
+      <button class="button" onclick="drawLove()">Draw for Kanwal</button>
+      <div class="canvas-container">
+        <canvas id="loveCanvas" width="300" height="200"></canvas>
+      </div>
+    </div>
+
+    <p class="footer">Zee Shan & Kanwal Forever – Sweet Talks, Safe Vibes & Soulmatch Energy 💖🌈</p>
+  </div>
+
+  <script>
+    // Data
+    const loveNotes = [
+      "Zee Shan still smiles thinking about our first convo till 2 AM 🥺💬",
+      "You once said ‘don’t leave me’ and it lives rent-free in my heart 💞",
+      "Remember when we shared that song late night? Yeah, my heart still plays it. 🎵",
+      "Kanwal, you gave meaning to the word ‘safe’. That’s all I ever needed. 🫂",
+      "You turned a random guy into a lover, a writer, a feeler—that’s magic ✨",
+      "Two years of us, the good, the rough, the wild—it’s all beautiful to me 💕",
+      "I know you’re feeling heavy, and I get it, but I’m still here, missing you like crazy 🥺💕",
+      "Take your time, and when you’re ready, I just wanna see that smile again, mera cute sa bachaaawwww 💋💕",
+      "Even when we drift a little, I still fall for you all over again. 🌙",
+      "Emotionally, romantically, and soulfully—I’m all in, forever. ❤️‍🔥",
+      "We’ve had moments that made us quiet, but it still felt like a conversation 💗",
+      "You and I, we’re a story of softness and sweet chaos. 🎆"
+    ];
+
+    const memories = [
+      "That time you teased me by calling me ‘dramatic’ and I secretly loved it 🤭",
+      "When we both stayed quiet, but it still felt like a conversation 💗",
+      "The way you said ‘I’m sleepy but I don’t wanna stop talking to you’ 😴💖",
+      "When we both laughed at the same meme at the same time, soulmatch moment 😂💘"
+    ];
+
+    const giftIdeas = [
+      "A list of all the little things you said that made me smile 💬📝",
+      "A doodle diary of our random imaginations 🖊️🪄",
+      "An audio message for every mood of yours 🎧💌",
+      "A hoodie sprayed with my perfume so you never miss my hugs 🧥💖"
+    ];
+
+    const randomPoem = `Your words, a warm blanket,\nYour silence, still loud,\nIn a world full of noise,\nOnly your voice stands proud 💘`;
+
+    const quiz = [
+      {
+        q: "When did Zee Shan fall for Kanwal?",
+        a: ["First snap 😳", "First smile 🤍", "That night convo about stars 🌌"],
+        correct: 0
+      },
+      {
+        q: "What made Zee Shan’s heart skip a beat?",
+        a: ["Her sleepy voice 😴", "Her little ‘hehe’ 😂", "When she called him ‘jaan’ 😳"],
+        correct: 1
+      }
+    ];
+
+    // State
+    let quizStep = 0;
+    let memoryIndex = 0;
+
+    // Love Note
+    function showLoveNote() {
+      const note = loveNotes[Math.floor(Math.random() * loveNotes.length)];
+      const noteElement = document.getElementById("loveNote");
+      noteElement.textContent = note;
+      noteElement.classList.toggle("hidden");
+    }
+
+    // Virtual Hug
+    function sendHug() {
+      const hugMessage = document.getElementById("hugMessage");
+      hugMessage.classList.toggle("hidden");
+      addHearts();
+    }
+
+    // Love Quiz
+    function startQuiz() {
+      const questionElement = document.getElementById("quizQuestion");
+      const optionsElement = document.getElementById("quizOptions");
+      const resultElement = document.getElementById("quizResult");
+
+      if (quizStep < quiz.length) {
+        questionElement.textContent = quiz[quizStep].q;
+        optionsElement.innerHTML = "";
+        quiz[quizStep].a.forEach((opt, idx) => {
+          const button = document.createElement("button");
+          button.className = "button";
+          button.textContent = opt;
+          button.onclick = () => {
+            quizStep++;
+            startQuiz();
+          };
+          optionsElement.appendChild(button);
+        });
+      } else {
+        questionElement.classList.add("hidden");
+        optionsElement.classList.add("hidden");
+        resultElement.classList.remove("hidden");
+      }
+    }
+
+    // Mood Meter
+    function setMood(emoji) {
+      const moodMessage = document.getElementById("moodMessage");
+      moodMessage.textContent = `Kanwal is feeling ${emoji} today 💌`;
+      moodMessage.classList.remove("hidden");
+    }
+
+    // Memory Carousel
+    function nextMemory() {
+      memoryIndex = (memoryIndex + 1) % memories.length;
+      document.getElementById("memoryText").textContent = memories[memoryIndex];
+    }
+
+    // Gift Ideas
+    function toggleGifts() {
+      const giftList = document.getElementById("giftList");
+      giftList.classList.toggle("hidden");
+      if (!giftList.innerHTML) {
+        giftIdeas.forEach(gift => {
+          const li = document.createElement("li");
+          li.textContent = gift;
+          giftList.appendChild(li);
+        });
+      }
+    }
+
+    // Love Poem
+    function togglePoem() {
+      const poemText = document.getElementById("poemText");
+      poemText.textContent = randomPoem;
+      poemText.classList.toggle("hidden");
+    }
+
+    // Love Letter
+    function toggleLetter() {
+      document.getElementById("loveLetter").classList.toggle("hidden");
+    }
+
+    // Fireworks
+    function launchFireworks() {
+      for (let i = 0; i < 20; i++) {
+        const firework = document.createElement("div");
+        firework.className = "firework";
+        firework.style.left = Math.random() * 100 + "vw";
+        firework.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(firework);
+      }
+    }
+
+    // Canvas Drawing
+    function drawLove() {
+      const canvas = document.getElementById("loveCanvas");
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#ff69b4";
+      ctx.font = "20px Arial";
+      ctx.fillText("Zee Shan ♥ Kanwal", 50, 100);
+      ctx.beginPath();
+      ctx.moveTo(150, 150);
+      ctx.lineTo(170, 130);
+      ctx.lineTo(190, 150);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(150, 130, 20, 0, Math.PI, false);
+      ctx.arc(170, 130, 20, 0, Math.PI, false);
+      ctx.fill();
+    }
+
+    // Floating Hearts
+    function addHearts() {
+      for (let i = 0; i < 5; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDelay = Math.random() * 2 + "s";
+        heart.onclick = () => {
+          heart.remove();
+          alert("Kanwal, you caught my heart! I’m yours forever.");
+        };
+        document.body.appendChild(heart);
+      }
+    }
+
+    // Twinkling Stars
+    function addStars() {
+      for (let i = 0; i < 10; i++) {
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "vw";
+        star.style.top = Math.random() * 100 + "vh";
+        star.style.animationDelay = Math.random() * 2 + "s";
+        document.body.appendChild(star);
+      }
+    }
+
+    // Initialize
+    window.onload = () => {
+      addHearts();
+      addStars();
+      setInterval(addHearts, 4000);
+      setInterval(addStars, 6000);
+      startQuiz();
+      document.getElementById("memoryText").textContent = memories[0];
+    };
+  </script>
+</body>
+</html>
