@@ -1,0 +1,214 @@
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Button } from "@/components/ui/button";
+
+export default function KanwalLoveSite() {
+  const [quizStep, setQuizStep] = useState(0);
+  const [showHug, setShowHug] = useState(false);
+  const [showSurprise, setShowSurprise] = useState(false);
+  const [loveLetterOpen, setLoveLetterOpen] = useState(false);
+  const [mood, setMood] = useState(null);
+  const [memory, setMemory] = useState(0);
+  const [giftOpen, setGiftOpen] = useState(false);
+  const [poem, setPoem] = useState(false);
+
+  const quiz = [
+    {
+      q: "When did Zeeshan fall for Kanwal?",
+      a: ["First snap 😳", "First smile 🤍", "That night convo about stars 🌌"],
+      correct: 0,
+    },
+    {
+      q: "What made Zeeshan's heart skip a beat?",
+      a: ["Her sleepy voice 😴", "Her little 'hehe' 😂", "When she called him 'jaan' 😳"],
+      correct: 1,
+    },
+  ];
+
+  const loveNotes = [
+    "Zeeshan still smiles thinking about our first proper convo till 2 AM 🥺💬",
+    "You once said 'don’t leave me' and it lives rent-free in my heart 💞",
+    "Remember when we shared that song late night? Yeah, my heart still plays it. 🎵",
+    "Kanwal, you gave meaning to the word 'safe'. That’s all I ever needed. 🫂",
+    "You turned a random guy into a lover, a writer, a feeler — that’s magic ✨",
+    "Yup, we get naughty naughty sometimes, and I love that, it’s our little spark, even when things get messy. 🔥",
+    "Two years of us, the good, the rough, the wild — it’s all beautiful to me 💕",
+    "I know you’re upset, and I get it, but I’m still here, missing you like crazy 🥺💕",
+    "Take your time, and when you’re ready, check this out — I just wanna see that smile again mera cute sa bachaaawwww 💋💕",
+    "Even when we fight, even when we drift a little, I still fall for you all over again. 🌙",
+    "Emotionally, romantically, and soulfully — I'm all in, forever. ❤️‍🔥",
+    "We’ve had moments that made us blush, and others that made us quiet — I treasure both. 🤍",
+    "You and I, we’re a story of spark, softness, and sweet chaos. 🎆"
+  ];
+
+  const memories = [
+    "That time you teased me by calling me 'dramatic' and I secretly loved it 🤭",
+    "When we both stayed quiet, but it still felt like a conversation 💗",
+    "The way you said 'I'm sleepy but I don’t wanna stop talking to you' 😴💖",
+    "When we both laughed at the same meme at the same time, soulmatch moment 😂💘",
+  ];
+
+  const giftIdeas = [
+    "A list of all the little things you said that made me smile 💬📝",
+    "A doodle diary of our random imaginations 🖊️🪄",
+    "An audio message for every mood of yours 🎧💌",
+    "A hoodie sprayed with my perfume so you never miss my hugs 🧥💖",
+  ];
+
+  const randomPoem = `Your words, a warm blanket,
+Your silence, still loud,
+In a world full of noise,
+Only your voice stands proud 💘`;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 to-purple-200 p-4 text-center text-gray-800 overflow-x-hidden">
+      <motion.h1
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="text-4xl md:text-6xl font-extrabold mb-4 text-rose-600"
+      >
+        Zeeshan ❤️ Kanwal
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 1 }}
+        className="text-xl md:text-2xl mb-8"
+      >
+        From Our First Message to Forever Memories 💕
+      </motion.p>
+
+      <motion.div
+        className="grid gap-4 md:grid-cols-2"
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.2,
+            },
+          },
+        }}
+      >
+        {/* Surprise Generator */}
+        <motion.div className="bg-white rounded-2xl shadow-xl p-6 hover:scale-105 transition-all">
+          <h2 className="text-2xl font-bold mb-2">🎁 A Love Note for Kanwal</h2>
+          <Button onClick={() => setShowSurprise(!showSurprise)}>
+            {showSurprise ? "Hide Note" : "Show a Surprise Note"}
+          </Button>
+          {showSurprise && (
+            <p className="mt-4 text-lg italic animate-pulse">
+              {loveNotes[Math.floor(Math.random() * loveNotes.length)]}
+            </p>
+          )}
+        </motion.div>
+
+        {/* Hug Button */}
+        <motion.div className="bg-white rounded-2xl shadow-xl p-6 hover:scale-105 transition-all">
+          <h2 className="text-2xl font-bold mb-2">🤗 Virtual Hug Machine</h2>
+          <Button onClick={() => setShowHug(!showHug)}>{showHug ? "Kanwal Smiled 💞" : "Send Hug 💗"}</Button>
+          {showHug && <motion.p className="mt-4 text-xl animate-bounce">Hug from Zeeshan to Kanwal 🤗💖</motion.p>}
+        </motion.div>
+
+        {/* Love Quiz */}
+        <motion.div className="bg-white rounded-2xl shadow-xl p-6 hover:scale-105 transition-all col-span-2">
+          <h2 className="text-2xl font-bold mb-4">💘 Love Quiz of Us</h2>
+          {quizStep < quiz.length ? (
+            <div>
+              <p className="text-lg font-medium mb-2">{quiz[quizStep].q}</p>
+              <div className="space-y-2">
+                {quiz[quizStep].a.map((opt, idx) => (
+                  <div className="w-full" key={idx}>
+                    <Button onClick={() => setQuizStep(quizStep + 1)} className="w-full">
+                      {opt}
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <motion.p className="text-xl animate-fade-in">Woohoo Kanwal! You nailed our love story 🥰🎉</motion.p>
+          )}
+        </motion.div>
+
+        {/* Mood Meter */}
+        <motion.div className="bg-white rounded-2xl shadow-xl p-6 hover:scale-105 transition-all col-span-2">
+          <h2 className="text-2xl font-bold mb-4">💭 Kanwal’s Mood Today</h2>
+          <div className="flex justify-center space-x-4">
+            {["😊", "😢", "😡", "🥰"].map((emoji, idx) => (
+              <motion.div
+                whileHover={{ scale: 1.3 }}
+                onClick={() => setMood(emoji)}
+                key={idx}
+                className="text-4xl cursor-pointer"
+              >
+                {emoji}
+              </motion.div>
+            ))}
+          </div>
+          {mood && <p className="mt-4 text-lg">Kanwal is feeling {mood} today 💌</p>}
+        </motion.div>
+
+        {/* Love Memory Carousel */}
+        <motion.div className="bg-white rounded-2xl shadow-xl p-6 hover:scale-105 transition-all">
+          <h2 className="text-2xl font-bold mb-2">📸 Sweet Memory</h2>
+          <Button onClick={() => setMemory((memory + 1) % memories.length)}>
+            Next Memory
+          </Button>
+          <p className="mt-4 text-md italic">{memories[memory]}</p>
+        </motion.div>
+
+        {/* Love Gift Ideas */}
+        <motion.div className="bg-white rounded-2xl shadow-xl p-6 hover:scale-105 transition-all">
+          <h2 className="text-2xl font-bold mb-2">🎀 Cute Gift Ideas</h2>
+          <Button onClick={() => setGiftOpen(!giftOpen)}>{giftOpen ? "Hide Gifts" : "Open Surprise Box"}</Button>
+          {giftOpen && (
+            <ul className="mt-4 list-disc text-left pl-6">
+              {giftIdeas.map((g, i) => <li key={i}>{g}</li>)}
+            </ul>
+          )}
+        </motion.div>
+
+        {/* Love Poem Generator */}
+        <motion.div className="bg-white rounded-2xl shadow-xl p-6 hover:scale-105 transition-all">
+          <h2 className="text-2xl font-bold mb-2">📝 Mini Love Poem</h2>
+          <Button onClick={() => setPoem(!poem)}>{poem ? "Hide Poem" : "Make Zeeshan Rhymed"}</Button>
+          {poem && <p className="mt-4 text-center text-pink-500 italic whitespace-pre-line">{randomPoem}</p>}
+        </motion.div>
+
+        {/* Hidden Love Letter */}
+        <motion.div className="bg-white rounded-2xl shadow-xl p-6 hover:scale-105 transition-all col-span-2">
+          <h2 className="text-2xl font-bold mb-2">💌 Open Love Letter</h2>
+          <Button onClick={() => setLoveLetterOpen(!loveLetterOpen)}>
+            {loveLetterOpen ? "Hide" : "Open Letter from Zeeshan"}
+          </Button>
+          {loveLetterOpen && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 text-left text-lg">
+              <p>Dear Kanwal,</p>
+              <p className="mt-2">I remember the night we both shared our dreams — yours made me want to protect them all. Your voice, even when sleepy, felt like home. You turned a simple 'hi' into a forever feeling. Thank you for giving my heart its favorite story - us. And Yup, we get naughty naughty sometimes, and I love that, it’s our little spark, even when things get messy. 
+
+Two years of us, the good, the rough, the wild it’s all beautiful to me. 
+
+I know you’re upset, and I get it, but I’m still here, missing you like crazy.🥺💕 
+
+I always want to be close to you and just like 2 bodies and 1 soul . ILYSM💋💕. ❤️</p>
+              <p className="mt-4">Forever yours,</p>
+              <p>Zeeshan 🥰</p>
+            </motion.div>
+          )}
+        </motion.div>
+      </motion.div>
+
+      <motion.p
+        className="mt-12 text-pink-600 font-semibold text-xl"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+      >
+        Zeeshan & Kanwal Forever – Sweet Talks, Safe Vibes & Soulmatch Energy 💖🌈
+      </motion.p>
+    </div>
+  );
+}
